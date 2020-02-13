@@ -24,4 +24,8 @@ Options:
   --format <fmt>                Report format [default: pretty]
 DOC;
 
-$args = Docopt::handle($doc);
+$args = Docopt::handle($doc, array('version'=>'Difference Generator 0.0.1'));
+
+foreach ($argc as $k => $v) {
+    echo $k . ': ' . json_encode($v) . PHP_EOL;
+  }
