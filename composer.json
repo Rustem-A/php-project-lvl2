@@ -1,0 +1,18 @@
+{
+    "name": "rustem/php-project-lvl2",
+    "description": "Difference generator",
+    "bin" : ["bin/gendiff"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rustem-A",
+            "email": "faustyanishe@gmail.com"
+        }
+    ],
+    "autoload": {
+        
+    },
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
