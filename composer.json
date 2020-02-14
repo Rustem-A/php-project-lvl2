@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "files": [
-            "src/genDiff.php"
+            "src/Functions.php"
         ]
     },
     "require": {
