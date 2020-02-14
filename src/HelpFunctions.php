@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Functions;
+namespace Differ;
 
 // Получить ассоц. массив из .json
 function getAssocArrayInJson(string $pathToFile): array
@@ -57,26 +57,4 @@ function getDeletedElems(array $arr1, array $arr2): array
         }
     }
     return $res;
-}
-
-// Получить разницу файлов
-function genDiff(string $filePath1, string $filePath2): string
-{
-    $file1 = getAssocArrayInJson($filePath1);
-    $file2 = getAssocArrayInJson($filePath2);
-
-    $res = array_merge(
-        getSameElems($file1, $file2),
-        getChangedElems($file1, $file2),
-        getAddedElems($file1, $file2),
-        getDeletedElems($file1, $file2)
-    );
-    
-    $str = "";
-    $str .= "{" . PHP_EOL;
-    foreach ($res as $key => $value) {
-        $str .= "$key: $value" . PHP_EOL;
-    }
-    $str .= "}" . PHP_EOL;
-    return $str;
 }

@@ -11,7 +11,8 @@
     ],
     "autoload": {
         "files": [
-            "src/Functions.php"
+            "src/HelpFunctions.php",
+            "src/Gendiff.php"
         ]
     },
     "require": {
@@ -19,9 +20,13 @@
         "funct/funct": "^1.5"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^8.5"
     },
 	"scripts": {
-    "phpcs": "phpcs"
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf",
+    "phpunit": "phpunit",
+    "test": "phpunit tests"
 	}
 }
