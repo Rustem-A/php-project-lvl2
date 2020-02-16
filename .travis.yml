@@ -1,10 +1,8 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=6195d249f9223104f779589e6cc81d71ab2cb7c19dca0ec64cdd5bb6240af5ab
+    - CC_TEST_REPORTER_ID=95cf282e082857504f712a60b44ef7a8affcb5bf6e72c62616f6568cd4cd0f48
 
 language: php
-php:
-  - '7.3'
 
 install:  
   - make install
@@ -14,9 +12,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
-script:
-  - make lint
-  - make test
+script: make lint test
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
