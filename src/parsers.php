@@ -5,14 +5,14 @@ namespace Differ\Parsers;
 use Symfony\Component\Yaml\Yaml;
 
 // Парсер (ассоц. массив из .json)
-function getAssocArrayInJson(string $pathToFile): array
+function JsonParser(string $pathToFile): array
 {
     $jsonFromFile = file_get_contents($pathToFile, FILE_IGNORE_NEW_LINES);
     $jsonIntoArr = json_decode($jsonFromFile, true);
     return $jsonIntoArr;
 }
 // Парсер (ассоц. массив из .yml)
-function getAssocArrayInYml(string $pathToFile): array
+function YmlParser(string $pathToFile): array
 {
     return Yaml::parseFile($pathToFile);
 }
@@ -23,10 +23,10 @@ function getAssocArray(string $pathToFile): array
 
     switch ($fileExtension) {
         case '.json':
-            return getAssocArrayInJson($pathToFile);
+            return JsonParser($pathToFile);
             break;
         case '.yml':
-            return getAssocArrayInYml($pathToFile);
+            return YmlParser($pathToFile);
             break;
     }
 }
