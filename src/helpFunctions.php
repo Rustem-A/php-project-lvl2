@@ -2,15 +2,9 @@
 
 namespace Differ;
 
-// Получить ассоц. массив из .json
-function getAssocArrayInJson(string $pathToFile): array
-{
-    $jsonFromFile = file_get_contents($pathToFile, FILE_IGNORE_NEW_LINES);
-    $jsonIntoArr = json_decode($jsonFromFile, true);
-    return $jsonIntoArr;
-}
-
-// Получить неизмененные элементы из ассоц. массива
+// Для плоских массивов, пара (ключ-элемент)
+ 
+// Получить неизмененные элементы из ассоц. массивов
 function getSameElems(array $arr1, array $arr2): array
 {
     $res = [];
@@ -22,7 +16,7 @@ function getSameElems(array $arr1, array $arr2): array
     return $res;
 }
 
-// Получить измененные элементы из ассоц. массива
+// Получить измененные элементы из ассоц. массивов
 function getChangedElems(array $arr1, array $arr2): array
 {
     $res = [];

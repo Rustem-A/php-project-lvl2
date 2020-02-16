@@ -11,13 +11,15 @@
     ],
     "autoload": {
         "files": [
-            "src/HelpFunctions.php",
-            "src/Gendiff.php"
+            "src/helpFunctions.php",
+            "src/genDiff.php",
+            "src/parsers.php"
         ]
     },
     "require": {
         "docopt/docopt": "^1.0",
-        "funct/funct": "^1.5"
+        "funct/funct": "^1.5",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
