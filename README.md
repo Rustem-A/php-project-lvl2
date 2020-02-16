@@ -14,4 +14,5 @@ $ composer global require rustem/php-project-lvl2
 ```
 
 # Пример с файломи .json и .yml:
- 
+
+[![asciicast](https://asciinema.org/a/301825.svg)](https://asciinema.org/a/301825) 
