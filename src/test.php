@@ -1,34 +1,34 @@
 <?php
 
-function flatten($collection, $depth = 1)
-{
-    $result = [];
+// function flatten($collection, $depth = 1)
+// {
+//     $result = [];
 
-    foreach ($collection as $value) {
-        if (is_array($value) && $depth > 0) {
-            $result = array_merge($result, flatten($value, $depth - 1));
-        } else {
-            $result[] = $value;
-        }
-    }
+//     foreach ($collection as $value) {
+//         if (is_array($value) && $depth > 0) {
+//             $result = array_merge($result, flatten($value, $depth - 1));
+//         } else {
+//             $result[] = $value;
+//         }
+//     }
 
-    return $result;
-}
+//     return $result;
+// }
 
-function flattenAll($collection)
-{
-    $result = [];
+// function flattenAll($collection)
+// {
+//     $result = [];
 
-    foreach ($collection as $value) {
-        if (is_array($value)) {
-            $result = array_merge($result, flattenAll($value));
-        } else {
-            $result[] = $value;
-        }
-    }
+//     foreach ($collection as $value) {
+//         if (is_array($value)) {
+//             $result = array_merge($result, flattenAll($value));
+//         } else {
+//             $result[] = $value;
+//         }
+//     }
 
-    return $result;
-}
+//     return $result;
+// }
 
 // $file1 = json_decode(file_get_contents("../beforeTree.json"), true);
 // $file2 = json_decode(file_get_contents("../afterTree.json"), true);
