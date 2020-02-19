@@ -1,57 +1,44 @@
 <?php
 
-// function flatten($collection, $depth = 1)
-// {
-//     $result = [];
-
-//     foreach ($collection as $value) {
-//         if (is_array($value) && $depth > 0) {
-//             $result = array_merge($result, flatten($value, $depth - 1));
-//         } else {
-//             $result[] = $value;
-//         }
-//     }
-
-//     return $result;
-// }
-
-// function flattenAll($collection)
-// {
-//     $result = [];
-
-//     foreach ($collection as $value) {
-//         if (is_array($value)) {
-//             $result = array_merge($result, flattenAll($value));
-//         } else {
-//             $result[] = $value;
-//         }
-//     }
-
-//     return $result;
-// }
-
-// $file1 = json_decode(file_get_contents("../beforeTree.json"), true);
-// $file2 = json_decode(file_get_contents("../afterTree.json"), true);
-
-$file1 = json_decode(file_get_contents("../before.json"), true);
-$file2 = json_decode(file_get_contents("../after.json"), true);
-$keysFile1 = array_keys($file1);
-$keysFile2 = array_keys($file2);
-$unionKeys = array_unique(array_merge($keysFile1, $keysFile2));
-//  Функциональный аналог поиска различий, принимает 2 плосих массива и
-// их общие уникальные ключи
-$reduce = array_reduce($unionKeys, function ($acc, $key) use ($file1, $file2) {
-    if (array_key_exists($key, $file1) && array_key_exists($key, $file2) && $file1[$key] == $file2[$key]) {
-        $acc["  $key"] = $file2[$key];
-    } elseif (array_key_exists($key, $file1) && array_key_exists($key, $file2) && $file1[$key] != $file2[$key]) {
-        $acc["- $key"] = $file1[$key];
-        $acc["+ $key"] = $file2[$key];
-    } elseif (!array_key_exists($key, $file2)) {
-        $acc["- $key"] = $file1[$key];
-    } elseif (!array_key_exists($key, $file1)) {
-        $acc["+ $key"] = $file2[$key];
+// Получить различия файлов
+function genDiff($fileBefore, $fileAfter)
+{
+      // Создаем узел из которых формируется предварительный массив
+    function makeNode($status, $key, $beforeValue, $afterValue, $children)
+    {
+            return [
+            'status' => $status,
+            'key' => $key,
+            'beforeValue' => $beforeValue,
+            'afterValue' => $afterValue,
+            'children' => $children
+            ];
     }
-    return $acc;
-}, []);
+      // Находим общие уник. ключи по которым фильтруем элементы при записи в новую ноду
+      $keysFile1 = array_keys($fileBefore);
+      $keysFile2 = array_keys($fileAfter);
+      $unionKeys = array_unique(array_merge($keysFile1, $keysFile2));
 
-print_r($reduce);
+      /* Перебераем все уник. ключи подставляя по ключу в исходные массивы. Каждую
+      *  итерацию map записывает в новый массив ноду созданную по фильтрам повторяя
+      *  конструкцию исходных массивов
+      */
+      return array_map(function ($key) use ($fileBefore, $fileAfter) {
+        if (!array_key_exists($key, $fileAfter)) {
+            return makeNode('Deleted', $key, $fileBefore[$key], null, null);
+        }
+        if (!array_key_exists($key, $fileBefore)) {
+            return makeNode('Added', $key, null, $fileAfter[$key], null);
+        }
+        if ($fileBefore[$key] != $fileAfter[$key]) {
+            return makeNode('Changed', $key, $fileBefore[$key], $fileAfter[$key], null);
+        }
+        if ($fileBefore[$key] == $fileAfter[$key]) {
+            return makeNode('Same', $key, $fileBefore[$key], $fileAfter[$key], null);
+        }
+        // Рукурсия в глубину массива если значение по ключу - массив
+        if (is_array($fileBefore[$key]) && is_array($fileAfter[$key])) {
+            return makeNode('Child', $key, null, null, genDiff($fileBefore[$key], $fileAfter[$key]));
+        }
+      }, $unionKeys);
+}
