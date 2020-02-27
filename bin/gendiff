@@ -36,16 +36,14 @@ $argc = Docopt::handle($doc, array('version' => 'Difference Generator 0.0.1'));
 $fileBefore = getAssocArray($argc['<beforeFile>']);
 $fileAfter = getAssocArray($argc['<afterFile>']);
 
+// print_r($fileBefore);
+// die;
 // Находим различия
 $diff = genDiff($fileBefore, $fileAfter);
-print_r(pretty($diff));
+
 // Рендерим, выводим
-// switch ($argc['<fmt>']) {
-//   case 'pretty':
-//     print_r(pretty($diff));
-//     break;
-  
-//   default:
-//     print_r(pretty($diff));
-//     break;
-// }
+switch ($argc['--format']) {
+  case 'pretty':
+    print_r(pretty($diff));
+    break;
+}
