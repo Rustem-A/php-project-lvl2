@@ -13,7 +13,8 @@
         "files": [
             "src/genDiff.php",
             "src/parsers/parsers.php",
-            "src/renders/pretty.php"
+            "src/renders/pretty.php",
+            "src/renders/plain.php"
         ]
     },
     "require": {

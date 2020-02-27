@@ -25,6 +25,7 @@ function getAssocArray(string $pathToFile): array
         case 'json':
             return JsonParser($pathToFile);
             break;
+        case 'yaml':
         case 'yml':
             return YmlParser($pathToFile);
             break;

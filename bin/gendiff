@@ -5,6 +5,7 @@
 use function Differ\Parsers\getAssocArray;
 use function Differ\genDiff;
 use function Differ\Renders\pretty;
+use function Differ\Renders\plain;
 
 // автозагрузчик композера
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
@@ -36,8 +37,6 @@ $argc = Docopt::handle($doc, array('version' => 'Difference Generator 0.0.1'));
 $fileBefore = getAssocArray($argc['<beforeFile>']);
 $fileAfter = getAssocArray($argc['<afterFile>']);
 
-// print_r($fileBefore);
-// die;
 // Находим различия
 $diff = genDiff($fileBefore, $fileAfter);
 
@@ -45,5 +44,9 @@ $diff = genDiff($fileBefore, $fileAfter);
 switch ($argc['--format']) {
   case 'pretty':
     print_r(pretty($diff));
+    break;
+  case 'plain':
+    $path = '';
+    print_r(plain($diff, $path));
     break;
 }
