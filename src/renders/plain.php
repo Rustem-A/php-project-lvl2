@@ -14,15 +14,18 @@ function toString($arr)
 function plain(array $arr, $path)
 {
     $res = array_reduce($arr, function ($acc, $node) use ($path) {
-        
+
+        // Формируем путь по вложенности массива, передаем в рекурсию
         $path .= $node['key'] . ".";
 
+        // Плоский массив -> строка
         if (is_array($node['afterValue'])) {
             $newValue = toString($node['afterValue']);
         } else {
             $newValue = $node['afterValue'];
         }
 
+        // Строковый вывод
         switch ($node['status']) {
             case 'deleted':
                 $acc .= "Property '$path' was deleted" . PHP_EOL;
@@ -30,6 +33,7 @@ function plain(array $arr, $path)
             case 'added':
                 $acc .= "Property '$path' was added whith value: $newValue" . PHP_EOL;
                 break;
+                // Рекурсия
             case 'nested':
                 $acc .= plain($node['children'], $path);
                 break;
@@ -38,6 +42,7 @@ function plain(array $arr, $path)
                 break;
         }
         return $acc;
+        // Строка
     }, '');
 
     return $res;
