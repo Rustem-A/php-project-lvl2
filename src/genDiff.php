@@ -3,29 +3,45 @@
 namespace Differ;
 
 use function Differ\Parsers\getAssocArray;
+use function Differ\Renders\pretty;
 
-// Получить различия файлов
-function genDiff(string $filePath1, string $filePath2): string
+function genDiff(array $fileBefore, array $fileAfter): array
 {
-    // Отправляем на опред. расширения и выбор парсера, преоб. в массив
-    $file1 = getAssocArray($filePath1);
-    $file2 = getAssocArray($filePath2);
+      // Создаем узел из которых формируется предварительный массив
+    $makeNode = function ($status, $key, $beforeValue, $afterValue, $children): array {
+        return [
+              'status' => $status,
+              'key' => $key,
+              'beforeValue' => $beforeValue,
+              'afterValue' => $afterValue,
+              'children' => $children
+          ];
+    };
+      // Находим общие уник. ключи по которым фильтруем элементы при записи в новую ноду
+            $keysFile1 = array_keys($fileBefore);
+            $keysFile2 = array_keys($fileAfter);
+            $unionKeys = array_unique(array_merge($keysFile1, $keysFile2));
 
-    // Получаем различия с помощью вспомогательных функций
-    $deffArray = array_merge(
-        // Опционально (описание в helpFunctions.php)
-        getSameElems($file1, $file2),
-        getChangedElems($file1, $file2),
-        getAddedElems($file1, $file2),
-        getDeletedElems($file1, $file2)
-    );
-    
-    // Формируем результат в виде строки, возвращаем
-    $str = "";
-    $str .= "{" . PHP_EOL;
-    foreach ($deffArray as $key => $value) {
-        $str .= "$key: $value" . PHP_EOL;
-    }
-    $str .= "}" . PHP_EOL;
-    return $str;
+      /* Перебераем все уник. ключи подставляя по ключу в исходные массивы. Каждую
+      *  итерацию map записывает в новый массив ноду созданную по фильтрам повторяя
+      *  конструкцию исходных массивов
+      */
+      return array_map(function ($key) use ($fileBefore, $fileAfter, $makeNode) {
+        if (!array_key_exists($key, $fileBefore)) {
+            return $makeNode('added', $key, false, $fileAfter[$key], false);
+        }
+        if (!array_key_exists($key, $fileAfter)) {
+            return $makeNode('deleted', $key, $fileBefore[$key], false, false);
+        }
+        if ($fileBefore[$key] === $fileAfter[$key]) {
+            return $makeNode('same', $key, $fileBefore[$key], $fileAfter[$key], false);
+        }
+        // рекурсия в глубину массива
+        if (is_array($fileBefore[$key]) && is_array($fileAfter[$key])) {
+            return $makeNode('nested', $key, false, false, genDiff($fileBefore[$key], $fileAfter[$key]));
+        }
+        if ($fileBefore[$key] !== $fileAfter[$key]) {
+            return $makeNode('changed', $key, $fileBefore[$key], $fileAfter[$key], false);
+        }
+      }, $unionKeys);
 }

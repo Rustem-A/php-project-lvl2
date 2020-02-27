@@ -2,7 +2,9 @@
 
 <?php
 
+use function Differ\Parsers\getAssocArray;
 use function Differ\genDiff;
+use function Differ\Renders\pretty;
 
 // автозагрузчик композера
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
@@ -30,5 +32,20 @@ DOC;
 
 $argc = Docopt::handle($doc, array('version' => 'Difference Generator 0.0.1'));
 
-// Получаем пути от юзера из docopt
-print_r(genDiff($argc['<beforeFile>'], $argc['<afterFile>'], $argc['--format']));
+// Получаем массивы на основе польз. путей с помощью Differ\Parsers\getAssocArray
+$fileBefore = getAssocArray($argc['<beforeFile>']);
+$fileAfter = getAssocArray($argc['<afterFile>']);
+
+// Находим различия
+$diff = genDiff($fileBefore, $fileAfter);
+print_r(pretty($diff));
+// Рендерим, выводим
+// switch ($argc['<fmt>']) {
+//   case 'pretty':
+//     print_r(pretty($diff));
+//     break;
+  
+//   default:
+//     print_r(pretty($diff));
+//     break;
+// }

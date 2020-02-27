@@ -19,13 +19,13 @@ function YmlParser(string $pathToFile): array
 // Выбирается функция-парсер в зависимости от расширения файла
 function getAssocArray(string $pathToFile): array
 {
-    $fileExtension = strstr($pathToFile, '.');
+    $fileExtension = substr(strrchr($pathToFile, "."), 1);
 
     switch ($fileExtension) {
-        case '.json':
+        case 'json':
             return JsonParser($pathToFile);
             break;
-        case '.yml':
+        case 'yml':
             return YmlParser($pathToFile);
             break;
     }

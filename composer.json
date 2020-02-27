@@ -11,9 +11,9 @@
     ],
     "autoload": {
         "files": [
-            "src/helpFunctions.php",
             "src/genDiff.php",
-            "src/parsers.php"
+            "src/parsers/parsers.php",
+            "src/renders/pretty.php"
         ]
     },
     "require": {
