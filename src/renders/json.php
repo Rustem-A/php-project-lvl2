@@ -33,6 +33,5 @@ function json(array $arr): string
     // // Меняем символы под json
     $res = str_replace(['\n'], PHP_EOL, $res);
     $res = str_replace(['\u0022',], '"', $res);
-    $res = str_replace(['[', ']'], ['{', '}'], $res);
-    return $res;
+    return str_replace(['[', ']'], ['{', '}'], $res);
 }
