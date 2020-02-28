@@ -28,14 +28,11 @@ function json(array $arr): string
         return $acc;
         // Массив
     }, []);
-    
     // В строку
     $res = json_encode($res, JSON_PRETTY_PRINT | JSON_HEX_QUOT);
-
     // // Меняем символы под json
     $res = str_replace(['\n'], PHP_EOL, $res);
     $res = str_replace(['\u0022',], '"', $res);
     $res = str_replace(['[', ']'], ['{', '}'], $res);
-
     return $res;
 }
