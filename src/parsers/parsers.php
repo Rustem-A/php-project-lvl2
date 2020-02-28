@@ -19,6 +19,11 @@ function YmlParser(string $pathToFile): array
 // Выбирается функция-парсер в зависимости от расширения файла
 function getAssocArray(string $pathToFile): array
 {
+    // Исключение
+    if (!is_readable($pathToFile)) {
+        throw new \Exception("'{$pathToFile}' is not readble");
+    }
+
     $fileExtension = substr(strrchr($pathToFile, "."), 1);
 
     switch ($fileExtension) {
