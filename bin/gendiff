@@ -6,6 +6,7 @@ use function Differ\Parsers\getAssocArray;
 use function Differ\genDiff;
 use function Differ\Renders\pretty;
 use function Differ\Renders\plain;
+use function Differ\Renders\json;
 
 // автозагрузчик композера
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
@@ -40,7 +41,7 @@ $fileAfter = getAssocArray($argc['<afterFile>']);
 // Находим различия
 $diff = genDiff($fileBefore, $fileAfter);
 
-// Рендерим, выводим
+// Выбираем рендер, рендерим, выводим
 switch ($argc['--format']) {
   case 'pretty':
     print_r(pretty($diff));
@@ -48,5 +49,8 @@ switch ($argc['--format']) {
   case 'plain':
     $path = '';
     print_r(plain($diff, $path));
+    break;
+  case 'json':
+    print_r(json($diff));
     break;
 }

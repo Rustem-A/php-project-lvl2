@@ -11,11 +11,12 @@ function toString($arr)
     return $res;
 }
 
-function plain(array $arr, $path)
+function plain(array $arr, $path): string
 {
+    // Аккумулятор
     $res = array_reduce($arr, function ($acc, $node) use ($path) {
 
-        // Формируем путь по вложенности массива, передаем в рекурсию
+        // Формируем путь по вложенности массива
         $path .= $node['key'] . ".";
 
         // Плоский массив -> строка
