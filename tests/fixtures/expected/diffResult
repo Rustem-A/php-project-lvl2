@@ -1,0 +1,96 @@
+{
+    "0": {
+        "status": "nested",
+        "key": "common",
+        "beforeValue": false,
+        "afterValue": false,
+        "children": {
+            "0": {
+                "status": "same",
+                "key": "setting1",
+                "beforeValue": "Value 1",
+                "afterValue": "Value 1",
+                "children": false
+            },
+            "1": {
+                "status": "deleted",
+                "key": "setting2",
+                "beforeValue": "200",
+                "afterValue": false,
+                "children": false
+            },
+            "2": {
+                "status": "same",
+                "key": "setting3",
+                "beforeValue": true,
+                "afterValue": true,
+                "children": false
+            },
+            "3": {
+                "status": "deleted",
+                "key": "setting6",
+                "beforeValue": {
+                    "key": "value5"
+                },
+                "afterValue": false,
+                "children": false
+            },
+            "6": {
+                "status": "added",
+                "key": "setting4",
+                "beforeValue": false,
+                "afterValue": "blah blah",
+                "children": false
+            },
+            "7": {
+                "status": "added",
+                "key": "setting5",
+                "beforeValue": false,
+                "afterValue": {
+                    "key5": "value"
+                },
+                "children": false
+            }
+        }
+    },
+    "1": {
+        "status": "nested",
+        "key": "group1",
+        "beforeValue": false,
+        "afterValue": false,
+        "children": [
+            {
+                "status": "changed",
+                "key": "baz",
+                "beforeValue": "bas",
+                "afterValue": "bars",
+                "children": false
+            },
+            {
+                "status": "same",
+                "key": "foo",
+                "beforeValue": "bar",
+                "afterValue": "bar",
+                "children": false
+            }
+        ]
+    },
+    "2": {
+        "status": "deleted",
+        "key": "group2",
+        "beforeValue": {
+            "abc": "12345"
+        },
+        "afterValue": false,
+        "children": false
+    },
+    "5": {
+        "status": "added",
+        "key": "group3",
+        "beforeValue": false,
+        "afterValue": {
+            "fee": "100500"
+        },
+        "children": false
+    }
+}

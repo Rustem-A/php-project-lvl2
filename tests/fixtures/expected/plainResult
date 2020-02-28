@@ -1,0 +1,7 @@
+Property 'common.setting2.' was deleted
+Property 'common.setting6.' was deleted
+Property 'common.setting4.' was added whith value: blah blah
+Property 'common.setting5.' was added whith value: 'key5: value' 
+Property 'group1.baz.' was changed. From: 'bas' to: 'bars'
+Property 'group2.' was deleted
+Property 'group3.' was added whith value: 'fee: 100500' 

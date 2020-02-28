@@ -47,8 +47,7 @@ switch ($argc['--format']) {
     print_r(pretty($diff));
     break;
   case 'plain':
-    $path = '';
-    print_r(plain($diff, $path));
+    print_r(plain($diff, ''));
     break;
   case 'json':
     print_r(json($diff));
