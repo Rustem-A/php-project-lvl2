@@ -26,3 +26,5 @@ $ composer global require rustem/php-project-lvl2
 # Пример с файлами .yml и выводом в json:
 
 [![asciicast](https://asciinema.org/a/305794.svg)](https://asciinema.org/a/305794)
+
+Красавчег!
